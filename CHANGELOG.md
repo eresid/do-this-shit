@@ -9,3 +9,9 @@
 - [x] Add Prettier
 - [ ] Add Swagger
 - [ ] Add Jest & Supertest
+
+## FrontEnd App
+
+- [ ] Init Project
+- [ ] Setup environments
+- [ ] Add Prettier
