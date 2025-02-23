@@ -1,0 +1,16 @@
+# Build files
+dist
+
+# IDE's files
+.idea
+
+# Dependencies
+node_modules
+package-lock.json
+
+# Env files
+.env.production
+.env.development
+
+# MacOS trash
+.DS_Store
