@@ -7,11 +7,13 @@
 - [x] Init Project (TypeScript 5.7.3 & Express 5.0.0)
 - [x] Setup environments
 - [x] Add Prettier
-- [ ] Add Swagger
+- [x] Add Mongoose & Setup Database
+- [ ] Add Morgan API logger (only for dev server)
+- [ ] Add Swagger (only for dev server)
 - [ ] Add Jest & Supertest
 
 ## FrontEnd App
 
-- [ ] Init Project
+- [x] Init Project
 - [ ] Setup environments
 - [ ] Add Prettier
