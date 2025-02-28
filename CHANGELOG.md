@@ -17,9 +17,11 @@
 ## FrontEnd App
 
 - [x] Init Project
-- [ ] Setup environments
+- [x] Setup environments
+- [ ] Add SCSS
 - [ ] Add Zustand
 - [ ] Add Prettier
+- [ ] Add React Router
 - [ ] Basic Posts CRUD
 - [ ] Basic Tasks List
 
