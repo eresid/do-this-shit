@@ -10,13 +10,15 @@
 - [x] Add Mongoose & Setup Database
 - [ ] Add Morgan API logger (only for dev server)
 - [ ] Add Swagger (only for dev server)
-- [ ] Add Jest & Supertest
+- [ ] Add Jest, Supertest & Post CRUD Tests
+- [ ] Posts CRUD
 - [ ] Tasks CRUD
 
 ## FrontEnd App
 
 - [x] Init Project
 - [ ] Setup environments
+- [ ] Add Zustand
 - [ ] Add Prettier
 - [ ] Basic Posts CRUD
 - [ ] Basic Tasks List
