@@ -11,9 +11,16 @@
 - [ ] Add Morgan API logger (only for dev server)
 - [ ] Add Swagger (only for dev server)
 - [ ] Add Jest & Supertest
+- [ ] Tasks CRUD
 
 ## FrontEnd App
 
 - [x] Init Project
 - [ ] Setup environments
 - [ ] Add Prettier
+- [ ] Basic Posts CRUD
+- [ ] Basic Tasks List
+
+# BackLog
+
+- [ ] Posts History
