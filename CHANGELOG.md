@@ -22,7 +22,7 @@
 - [x] Add MUI
 - [x] Add Zustand
 - [x] Add Prettier
-- [ ] Add React Router
+- [x] Add React Router
 - [ ] Basic Posts CRUD
 - [ ] Basic Tags CRUD
 

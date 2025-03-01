@@ -37,6 +37,12 @@ export default function EditPost() {
     }
   };
 
+  const addCancelClicked = () => {
+    setCurrentPost(null);
+    setTitle("");
+    setContent("");
+  };
+
   const editPostClicked = (post: Post) => {
     setCurrentPost(post);
     setTitle(post.title);
@@ -91,9 +97,27 @@ export default function EditPost() {
             onChange={(e) => setContent(e.target.value)}
           />
 
-          <Button variant="contained" onClick={addPostClicked}>
-            {currentPost ? "Save" : "Create"}
-          </Button>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              gap: 0.25,
+              mb: 2,
+            }}
+          >
+            <Button variant="contained" onClick={addPostClicked}>
+              {currentPost ? "Save" : "Create"}
+            </Button>
+            {currentPost ? (
+              <Button
+                variant="contained"
+                onClick={addCancelClicked}
+                color="secondary"
+              >
+                Cancel
+              </Button>
+            ) : null}
+          </Box>
         </Box>
 
         <div>
