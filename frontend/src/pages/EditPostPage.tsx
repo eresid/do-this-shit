@@ -62,7 +62,9 @@ export default function EditPost() {
           mb: 2,
         }}
       >
-        <Typography variant="h5">Edit Post</Typography>
+        <Typography variant="h5">
+          {currentPost ? "Edit Post" : "Add Post"}
+        </Typography>
 
         <Box
           sx={{
