@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import PostModel from "../../models/posts/post.model";
+import { ERRORS } from "../../constants/strings.constants";
 
 class PostService {
   async getMyPosts(req: Request, res: Response): Promise<any> {
@@ -31,19 +32,19 @@ class PostService {
 
   async updatePost(req: Request, res: Response): Promise<any> {
     try {
-      const { title, description, tagIds } = req.body;
+      const { title, content } = req.body;
 
       const post = await PostModel.findById(req.params.id);
       if (!post) {
-        return res.status(404).send({ error: "Пост не знайдено" });
+        return res.status(404).send({ error: ERRORS.posts.notFound });
       }
 
-      post.title = title ?? post.title;
-      post.content = description ?? post.content;
-      if (tagIds) post.tags = tagIds;
+      post.title = title;
+      post.content = content;
 
       await post.save();
-      res.status(200).send(await post.populate("tags"));
+
+      return res.status(200).send(post);
     } catch (error: any) {
       console.error(error.message);
       return res.status(500).json({ error: error.message });
