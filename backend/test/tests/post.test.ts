@@ -40,9 +40,9 @@ describe("Run Post CRUD Tests", () => {
 
   const validatePost = (testPost: PostBody, postFromServer: PostBody) => {
     expect(postFromServer).toHaveProperty("title");
-    expect(postFromServer.title).toBe("some title");
+    expect(postFromServer.title).toBe(testPost.title);
     expect(postFromServer).toHaveProperty("content");
-    expect(postFromServer.content).toBe("some content");
+    expect(postFromServer.content).toBe(testPost.content);
     expect(postFromServer).toHaveProperty("isArchived");
     expect(postFromServer.isArchived).toBe(false);
     expect(postFromServer).toHaveProperty("_id");
