@@ -7,12 +7,11 @@ import DeletePostDialog from "../components/DeletePostDialog";
 
 type Props = {
   post: Post;
-  editPostClicked: (post: Post) => void;
 };
 
-const PostListItem = ({ post, editPostClicked }: Props) => {
-  const { deletePost } = usePostsStore();
+const PostListItem = ({ post }: Props) => {
   const navigate = useNavigate();
+  const { deletePost } = usePostsStore();
 
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
 
@@ -21,10 +20,6 @@ const PostListItem = ({ post, editPostClicked }: Props) => {
 
     setPostToDelete(null);
   };
-
-  // const editClicked = (post: Post) => {
-  //   navigate(`/editor/${post._id}`, { state: { item: items[index] } });
-  // };
 
   return (
     <Box
@@ -55,7 +50,7 @@ const PostListItem = ({ post, editPostClicked }: Props) => {
           <Button
             variant="contained"
             onClick={() => {
-              editPostClicked(post);
+              navigate(`/edit-post/`, { state: { post: post } });
             }}
           >
             Edit

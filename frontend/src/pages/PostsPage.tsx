@@ -1,53 +1,17 @@
-import { useEffect, useState } from "react";
-import { Button, TextField, Box, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { Button, Box } from "@mui/material";
+import { useNavigate } from "react-router";
 
 import { Post, usePostsStore } from "../store/PostsStore";
 import PostListItem from "../components/PostListItem";
 
 export default function EditPost() {
-  const { posts, addPost, updatePost, fetchPosts } = usePostsStore();
-
-  const [currentPost, setCurrentPost] = useState<Post | null>(null);
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  const { posts, fetchPosts } = usePostsStore();
 
   useEffect(() => {
     fetchPosts();
   }, []);
-
-  const addPostClicked = () => {
-    if (title.trim()) {
-      if (currentPost) {
-        updatePost({
-          _id: currentPost._id,
-          title,
-          content,
-        });
-      } else {
-        addPost({
-          title,
-          content,
-        });
-      }
-
-      setCurrentPost(null);
-      setTitle("");
-      setContent("");
-    }
-  };
-
-  const addCancelClicked = () => {
-    setCurrentPost(null);
-    setTitle("");
-    setContent("");
-  };
-
-  const editPostClicked = (post: Post) => {
-    setCurrentPost(post);
-    setTitle(post.title);
-    setContent(post.content || "");
-  };
 
   return (
     <Box
@@ -58,6 +22,15 @@ export default function EditPost() {
         p: 2,
       }}
     >
+      <Button
+        variant="contained"
+        onClick={() => {
+          navigate(`/edit-post/`);
+        }}
+      >
+        New Post
+      </Button>
+
       <Box
         sx={{
           display: "flex",
@@ -66,61 +39,9 @@ export default function EditPost() {
           mb: 2,
         }}
       >
-        <Typography variant="h5">
-          {currentPost ? "Edit Post" : "Add Post"}
-        </Typography>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 0.25,
-            mb: 2,
-          }}
-        >
-          <TextField
-            id="outlined-basic"
-            label="Title"
-            variant="outlined"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-
-          <TextField
-            id="outlined-textarea"
-            label="Content"
-            placeholder="Placeholder"
-            multiline
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row-reverse",
-              gap: 0.25,
-              mb: 2,
-            }}
-          >
-            <Button variant="contained" onClick={addPostClicked}>
-              {currentPost ? "Save" : "Create"}
-            </Button>
-            {currentPost ? (
-              <Button
-                variant="contained"
-                onClick={addCancelClicked}
-                color="secondary"
-              >
-                Cancel
-              </Button>
-            ) : null}
-          </Box>
-        </Box>
-
         <div>
           {posts.map((post: Post) => (
-            <PostListItem post={post} editPostClicked={editPostClicked} />
+            <PostListItem post={post} />
           ))}
         </div>
       </Box>
