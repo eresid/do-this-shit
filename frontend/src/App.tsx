@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import EditPost from "./pages/EditPostPage";
+import PostsPage from "./pages/PostsPage";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <EditPost />
+        <PostsPage />
       </header>
     </div>
   );

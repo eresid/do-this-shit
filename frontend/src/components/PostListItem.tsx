@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Box } from "@mui/material";
+import { useNavigate } from "react-router";
 
 import { Post, usePostsStore } from "../store/PostsStore";
 import DeletePostDialog from "../components/DeletePostDialog";
@@ -11,6 +12,7 @@ type Props = {
 
 const PostListItem = ({ post, editPostClicked }: Props) => {
   const { deletePost } = usePostsStore();
+  const navigate = useNavigate();
 
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
 
@@ -20,50 +22,72 @@ const PostListItem = ({ post, editPostClicked }: Props) => {
     setPostToDelete(null);
   };
 
+  // const editClicked = (post: Post) => {
+  //   navigate(`/editor/${post._id}`, { state: { item: items[index] } });
+  // };
+
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        flexDirection: "column",
         maxWidth: 800,
-        margin: "auto",
         mt: 1,
-        p: 1,
+        p: 2,
+        boxShadow: 2,
+        background: "#fff",
       }}
     >
-      {post.title}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        {post.title}
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => {
+              editPostClicked(post);
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setPostToDelete(post);
+            }}
+            color="error"
+          >
+            Delete
+          </Button>
+        </Box>
+
+        <DeletePostDialog
+          postToDelete={postToDelete}
+          onDeleteClicked={deletePostClicked}
+          onCloseClick={() => setPostToDelete(null)}
+        />
+      </Box>
 
       <Box
         sx={{
           display: "flex",
-          gap: 1,
+          justifyContent: "space-between",
+          mt: 1,
+          fontSize: "16px",
         }}
       >
-        <Button
-          variant="contained"
-          onClick={() => {
-            editPostClicked(post);
-          }}
-        >
-          Edit
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            setPostToDelete(post);
-          }}
-          color="error"
-        >
-          Delete
-        </Button>
+        {post.content}
       </Box>
-
-      <DeletePostDialog
-        postToDelete={postToDelete}
-        onDeleteClicked={deletePostClicked}
-        onCloseClick={() => setPostToDelete(null)}
-      />
     </Box>
   );
 };

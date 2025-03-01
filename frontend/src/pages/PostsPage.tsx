@@ -56,8 +56,6 @@ export default function EditPost() {
         margin: "auto",
         mt: 2,
         p: 2,
-        boxShadow: 1,
-        borderRadius: 1,
       }}
     >
       <Box
