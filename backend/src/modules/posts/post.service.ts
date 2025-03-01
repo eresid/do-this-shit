@@ -52,16 +52,14 @@ class PostService {
   }
 
   async deletePost(req: Request, res: Response): Promise<any> {
-    // try {
-    //   const wall = await PostModel.findOne({ status: WALL_STATUS.CURRENT }, { createdAt: 0, updatedAt: 0 });
-    //   if (!wall) {
-    //     return res.status(404).json({ error: ERRORS.posts.notFound });
-    //   }
-    //   return res.status(200).json(wall);
-    // } catch (error: any) {
-    //   console.error(error.message);
-    //   return res.status(500).json({ error: error.message });
-    // }
+    try {
+      await PostModel.findByIdAndDelete(req.params.id);
+
+      return res.status(201).send();
+    } catch (error: any) {
+      console.error(error.message);
+      return res.status(500).json({ error: error.message });
+    }
   }
 }
 

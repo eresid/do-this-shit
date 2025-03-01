@@ -14,6 +14,7 @@ interface PostsState {
   posts: Post[];
   addPost: (post: Post) => void;
   updatePost: (post: Post) => void;
+  deletePost: (post: Post) => void;
   fetchPosts: () => void;
 }
 
@@ -35,6 +36,13 @@ export const usePostsStore = create<PostsState>()((set) => ({
       posts: state.posts.map((post) =>
         post._id === updatedPost._id ? data : post
       ),
+    }));
+  },
+
+  deletePost: async (postToDelete: Post) => {
+    await axios.delete(API_URL + `posts/${postToDelete._id}`);
+    set((state) => ({
+      posts: state.posts.filter((post) => post._id !== postToDelete._id),
     }));
   },
 

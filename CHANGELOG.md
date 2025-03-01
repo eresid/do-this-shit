@@ -13,6 +13,7 @@
 - [ ] Add Swagger (only for dev server)
 - [ ] Add Jest, Supertest & Post CRUD Tests
 - [ ] Posts CRUD
+- [ ] Tags CRUD
 
 ### FrontEnd Side
 
@@ -23,15 +24,21 @@
 - [x] Add Prettier
 - [ ] Add React Router
 - [ ] Basic Posts CRUD
+- [ ] Basic Tags CRUD
 
 ## BackLog
 
 ### BackEnd Side
 
+- [ ] Auth Flow
+- [ ] Setup Security
 - [ ] Tasks CRUD
 - [ ] Posts History
 
 ### FrontEnd Side
 
+- [ ] Login Screen
+- [ ] Create Invite Screen
+- [ ] Registration Screen
 - [ ] Basic Tasks List
 - [ ] Add Yoopta Editor
