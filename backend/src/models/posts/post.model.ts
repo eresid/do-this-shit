@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema<Post>(
     title: { type: String, required: true },
     content: { type: String },
     isArchived: { type: Boolean, default: false },
+    type: { type: String, required: true },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
   },
   {

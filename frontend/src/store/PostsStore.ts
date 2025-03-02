@@ -8,6 +8,12 @@ export interface Post {
   _id?: string;
   title: string;
   content?: string;
+  type: PostType;
+}
+
+export enum PostType {
+  Link = "link",
+  Markdown = "markdown",
 }
 
 interface PostsState {

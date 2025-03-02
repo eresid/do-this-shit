@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Link } from "@mui/material";
 import { useNavigate } from "react-router";
 
-import { Post, usePostsStore } from "../store/PostsStore";
+import { Post, PostType, usePostsStore } from "../store/PostsStore";
 import DeletePostDialog from "../components/DeletePostDialog";
 
 type Props = {
@@ -14,6 +14,8 @@ const PostListItem = ({ post }: Props) => {
   const { deletePost } = usePostsStore();
 
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
+
+  const isLink = post.type == PostType.Link;
 
   const deletePostClicked = (post: Post) => {
     deletePost(post);
@@ -39,7 +41,19 @@ const PostListItem = ({ post }: Props) => {
           justifyContent: "space-between",
         }}
       >
-        {post.title}
+        {isLink ? (
+          <Link
+            sx={{
+              cursor: "pointer",
+            }}
+            href={post.content}
+            target="_blank"
+          >
+            {post.title}
+          </Link>
+        ) : (
+          post.title
+        )}
 
         <Box
           sx={{
@@ -73,16 +87,18 @@ const PostListItem = ({ post }: Props) => {
         />
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          mt: 1,
-          fontSize: "16px",
-        }}
-      >
-        {post.content}
-      </Box>
+      {!isLink ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mt: 1,
+            fontSize: "16px",
+          }}
+        >
+          {post.content}
+        </Box>
+      ) : null}
     </Box>
   );
 };

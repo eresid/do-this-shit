@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Post, usePostsStore } from "../store/PostsStore";
+import { Post, PostType, usePostsStore } from "../store/PostsStore";
+import PostTypeSelector from "../components/PostTypeSelector";
 
 export default function EditPost() {
   const location = useLocation();
@@ -11,6 +12,7 @@ export default function EditPost() {
   const [post, setPost] = useState<Post | null>(
     location.state ? location.state.post : null
   );
+  const [type, setType] = useState(post ? post.type : PostType.Markdown);
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");
 
@@ -21,11 +23,13 @@ export default function EditPost() {
           _id: post._id,
           title,
           content,
+          type,
         });
       } else {
         addPost({
           title,
           content,
+          type,
         });
       }
 
@@ -62,29 +66,48 @@ export default function EditPost() {
           mb: 2,
         }}
       >
-        <TextField
-          id="outlined-basic"
-          label="Title"
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            width: "100%",
+            mt: 1,
+          }}
+        >
+          <TextField
+            sx={{
+              width: "70%",
+            }}
+            id="outlined-basic"
+            label="Title"
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <TextField
-          id="outlined-textarea"
-          label="Content"
-          placeholder="Placeholder"
-          multiline
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+          <PostTypeSelector type={type} setType={setType} />
+        </Box>
+
+        {type ? (
+          <TextField
+            id="outlined-textarea"
+            label="Content"
+            placeholder="Placeholder"
+            multiline
+            value={content}
+            sx={{
+              mt: 1,
+            }}
+            onChange={(e) => setContent(e.target.value)}
+          />
+        ) : null}
 
         <Box
           sx={{
             display: "flex",
             flexDirection: "row-reverse",
             gap: 0.25,
-            mb: 2,
+            mt: 1,
           }}
         >
           <Button variant="contained" onClick={addPostClicked}>

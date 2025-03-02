@@ -16,11 +16,12 @@ class PostService {
 
   async createPost(req: Request, res: Response): Promise<any> {
     try {
-      const { title, content } = req.body;
+      const { title, content, type } = req.body;
 
       const newPost = await PostModel.create({
         title: title,
         content: content,
+        type: type,
       });
 
       return res.status(200).json(newPost);
@@ -32,7 +33,7 @@ class PostService {
 
   async updatePost(req: Request, res: Response): Promise<any> {
     try {
-      const { title, content } = req.body;
+      const { title, content, type } = req.body;
 
       const post = await PostModel.findById(req.params.id);
       if (!post) {
@@ -41,6 +42,7 @@ class PostService {
 
       post.title = title;
       post.content = content;
+      post.type = type;
 
       await post.save();
 
