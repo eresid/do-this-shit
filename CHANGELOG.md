@@ -9,7 +9,7 @@
 - [x] Add Prettier
 - [x] Add Mongoose & Setup Database
 - [x] Add Cors
-- [ ] Add Morgan API logger (only for dev server)
+- [x] Add Morgan API logger (only for dev server)
 - [ ] Add Swagger (only for dev server)
 - [ ] Add Jest, Supertest & Post CRUD Tests
 - [ ] Posts CRUD
