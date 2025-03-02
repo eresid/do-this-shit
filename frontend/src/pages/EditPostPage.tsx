@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from "react-router";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { Post, PostType, usePostsStore } from "../store/PostsStore";
 import PostTypeSelector from "../components/PostTypeSelector";
+import PostMarkdownTabs from "../components/PostMarkdownTabs";
 
 export default function EditPost() {
   const location = useLocation();
@@ -15,6 +17,7 @@ export default function EditPost() {
   const [type, setType] = useState(post ? post.type : PostType.Markdown);
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");
+  const [isEditMode, setIsEditMode] = useState<boolean>(true);
 
   const addPostClicked = () => {
     if (title.trim()) {
@@ -88,19 +91,36 @@ export default function EditPost() {
           <PostTypeSelector type={type} setType={setType} />
         </Box>
 
-        {type ? (
+        {type == PostType.Markdown ? (
+          <PostMarkdownTabs
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+          />
+        ) : null}
+
+        {isEditMode ? (
           <TextField
             id="outlined-textarea"
             label="Content"
-            placeholder="Placeholder"
-            multiline
+            placeholder="Enter content..."
+            multiline={type != PostType.Link}
             value={content}
             sx={{
               mt: 1,
             }}
             onChange={(e) => setContent(e.target.value)}
           />
-        ) : null}
+        ) : (
+          <ReactMarkdown
+            components={{
+              a: ({ node, ...props }) => (
+                <a {...props} target="_blank" rel="noopener noreferrer" />
+              ),
+            }}
+          >
+            {content}
+          </ReactMarkdown>
+        )}
 
         <Box
           sx={{

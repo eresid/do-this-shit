@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Box, Link } from "@mui/material";
 import { useNavigate } from "react-router";
+import ReactMarkdown from "react-markdown";
 
 import { Post, PostType, usePostsStore } from "../store/PostsStore";
 import DeletePostDialog from "../components/DeletePostDialog";
@@ -91,12 +92,21 @@ const PostListItem = ({ post }: Props) => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            flexDirection: "column",
             mt: 1,
             fontSize: "16px",
+            textAlign: "left",
           }}
         >
-          {post.content}
+          <ReactMarkdown
+            components={{
+              a: ({ node, ...props }) => (
+                <a {...props} target="_blank" rel="noopener noreferrer" />
+              ),
+            }}
+          >
+            {post.content?.split("\n").slice(0, 5).join("\n")}
+          </ReactMarkdown>
         </Box>
       ) : null}
     </Box>
