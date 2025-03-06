@@ -4,7 +4,8 @@ import { useNavigate } from "react-router";
 import ReactMarkdown from "react-markdown";
 
 import { Post, PostType, usePostsStore } from "../store/PostsStore";
-import DeletePostDialog from "../components/DeletePostDialog";
+import DeletePostDialog from "./DeletePostDialog";
+import PostItemMenuButton from "./PostItemMenuButton";
 
 type Props = {
   post: Post;
@@ -30,10 +31,13 @@ const PostListItem = ({ post }: Props) => {
         display: "flex",
         flexDirection: "column",
         maxWidth: 800,
-        mt: 1,
-        p: 2,
-        boxShadow: 2,
+        mt: 0.75,
+        px: 1,
+        py: 0.5,
+        border: 1,
+        borderColor: "#e7eaee",
         background: "#fff",
+        fontSize: 16,
       }}
     >
       <Box
@@ -42,19 +46,26 @@ const PostListItem = ({ post }: Props) => {
           justifyContent: "space-between",
         }}
       >
-        {isLink ? (
-          <Link
-            sx={{
-              cursor: "pointer",
-            }}
-            href={post.content}
-            target="_blank"
-          >
-            {post.title}
-          </Link>
-        ) : (
-          post.title
-        )}
+        <div
+          style={{
+            alignContent: "center",
+          }}
+        >
+          {isLink ? (
+            <Link
+              sx={{
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              href={post.content}
+              target="_blank"
+            >
+              {post.title}
+            </Link>
+          ) : (
+            post.title
+          )}
+        </div>
 
         <Box
           sx={{
@@ -62,23 +73,14 @@ const PostListItem = ({ post }: Props) => {
             gap: 1,
           }}
         >
-          <Button
-            variant="contained"
-            onClick={() => {
-              navigate(`/edit-post/`, { state: { post: post } });
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
+          <PostItemMenuButton
+            onDeleteClick={() => {
               setPostToDelete(post);
             }}
-            color="error"
-          >
-            Delete
-          </Button>
+            onEditClick={() => {
+              navigate(`/edit-post/`, { state: { post: post } });
+            }}
+          />
         </Box>
 
         <DeletePostDialog
