@@ -1,6 +1,20 @@
 # CHANGELOG
 
-## 0.1 (xx.xx.2025)
+## 0.2 (xx.xx.2025)
+
+### BackEnd Side
+
+- [ ] Add Swagger (only for dev server)
+- [ ] Tags CRUD
+- [ ] Post fields validation
+- [ ] Change Posts order - last updated first
+
+### FrontEnd Side
+
+- [ ] Basic Tags CRUD
+- [ ] Post fields validation
+
+## 0.1 (06.03.2025)
 
 ### BackEnd Side
 
@@ -10,10 +24,8 @@
 - [x] Add Mongoose & Setup Database
 - [x] Add Cors
 - [x] Add Morgan API logger (only for dev server)
-- [ ] Add Swagger (only for dev server)
-- [ ] Add Jest, Supertest & Post CRUD Tests
-- [ ] Posts CRUD
-- [ ] Tags CRUD
+- [x] Add Jest, Supertest & Post CRUD Tests
+- [x] Posts CRUD
 
 ### FrontEnd Side
 
@@ -23,8 +35,7 @@
 - [x] Add Zustand
 - [x] Add Prettier
 - [x] Add React Router
-- [ ] Basic Posts CRUD
-- [ ] Basic Tags CRUD
+- [x] Basic Posts CRUD
 
 ## BackLog
 
