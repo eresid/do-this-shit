@@ -5,7 +5,7 @@ import { ERRORS } from "../../constants/strings.constants";
 class PostService {
   async getMyPosts(req: Request, res: Response): Promise<any> {
     try {
-      const posts = await PostModel.find({ isArchived: false });
+      const posts = await PostModel.find({ isArchived: false }).sort({ updatedAt: -1 });
 
       return res.status(200).json(posts);
     } catch (error: any) {
