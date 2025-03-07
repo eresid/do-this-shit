@@ -8,7 +8,8 @@
     "dev": "cross-env NODE_ENV=development nodemon src/server.ts",
     "prod": "cross-env NODE_ENV=production ts-node src/server.ts",
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --detectOpenHandles",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "cors": "^2.8.5",
