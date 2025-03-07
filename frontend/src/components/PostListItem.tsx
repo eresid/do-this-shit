@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Box, Link } from "@mui/material";
+import { Button, Box, Link, Container } from "@mui/material";
 import { useNavigate } from "react-router";
 import ReactMarkdown from "react-markdown";
 
@@ -16,6 +16,7 @@ const PostListItem = ({ post }: Props) => {
   const { deletePost } = usePostsStore();
 
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
+  const [isPostOpen, setPostOpen] = useState<boolean>(false);
 
   const isLink = post.type == PostType.Link;
 
@@ -56,6 +57,7 @@ const PostListItem = ({ post }: Props) => {
               sx={{
                 cursor: "pointer",
                 textDecoration: "none",
+                color: "#1976d5",
               }}
               href={post.content}
               target="_blank"
@@ -63,7 +65,17 @@ const PostListItem = ({ post }: Props) => {
               {post.title}
             </Link>
           ) : (
-            post.title
+            <Link
+              sx={{
+                cursor: "pointer",
+                color: "#1976d5",
+              }}
+              onClick={() => {
+                setPostOpen(!isPostOpen);
+              }}
+            >
+              {post.title}
+            </Link>
           )}
         </div>
 
@@ -90,7 +102,7 @@ const PostListItem = ({ post }: Props) => {
         />
       </Box>
 
-      {!isLink ? (
+      {!isLink && isPostOpen ? (
         <Box
           sx={{
             display: "flex",

@@ -7,12 +7,16 @@
 - [ ] Add Swagger (only for dev server)
 - [ ] Tags CRUD
 - [ ] Post fields validation
-- [ ] Change Posts order - last updated first
+- [x] Change Posts order - last updated first
+- [ ] Search for Posts
+- [ ] 20 unit & integration tests
 
 ### FrontEnd Side
 
+- [x] Hide Posts content by default
 - [ ] Basic Tags CRUD
 - [ ] Post fields validation
+- [ ] Search for Posts
 
 ## 0.1 (06.03.2025)
 
