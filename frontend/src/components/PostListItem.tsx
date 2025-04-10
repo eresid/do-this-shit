@@ -53,17 +53,25 @@ const PostListItem = ({ post }: Props) => {
           }}
         >
           {isLink ? (
-            <Link
+            <Box
               sx={{
-                cursor: "pointer",
-                textDecoration: "none",
-                color: "#1976d5",
+                display: "flex",
+                gap: 0.5,
               }}
-              href={post.content}
-              target="_blank"
             >
-              {post.title}
-            </Link>
+              <Link
+                sx={{
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  color: "#1976d5",
+                }}
+                href={post.content}
+                target="_blank"
+              >
+                {post.title}
+              </Link>
+              🔗
+            </Box>
           ) : (
             <Link
               sx={{
