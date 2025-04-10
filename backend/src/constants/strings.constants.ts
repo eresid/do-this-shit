@@ -3,4 +3,7 @@ export const ERRORS = {
   posts: {
     notFound: "The post not found",
   },
+  tags: {
+    notFound: "The tag not found",
+  },
 };
