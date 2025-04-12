@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { connectMockDatabase, disconnectMockDatabase } from "../utils/MockMongoLoader";
-import { getMyPosts, createPost, updatePost, deletePost, PostBody } from "../api/post.apis";
+import { getMyPosts, createPost, updatePost, deletePost, PostBody, PostType } from "../api/post.apis";
 
 /**
  * Post CRUD Tests
@@ -28,6 +28,7 @@ describe("Run Post CRUD Tests", () => {
     const testPost: PostBody = {
       title: "some title",
       content: "some content",
+      type: PostType.Link,
     };
 
     const newPostResponse = await createPost(testPost);
@@ -43,6 +44,8 @@ describe("Run Post CRUD Tests", () => {
     expect(postFromServer.title).toBe(testPost.title);
     expect(postFromServer).toHaveProperty("content");
     expect(postFromServer.content).toBe(testPost.content);
+    expect(postFromServer).toHaveProperty("type");
+    expect(postFromServer.type).toBe(testPost.type);
     expect(postFromServer).toHaveProperty("isArchived");
     expect(postFromServer.isArchived).toBe(false);
     expect(postFromServer).toHaveProperty("_id");

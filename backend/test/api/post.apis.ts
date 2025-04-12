@@ -6,8 +6,14 @@ const app = loadServer();
 export type PostBody = {
   title?: string;
   content?: string;
+  type?: PostType;
   isArchived?: boolean;
 };
+
+export enum PostType {
+  Link = "link",
+  Markdown = "markdown",
+}
 
 export const getMyPosts = async () => {
   return await supertest(app).get("/posts");
