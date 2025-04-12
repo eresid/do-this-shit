@@ -5,7 +5,7 @@ import { ERRORS } from "../../constants/strings.constants";
 class TagService {
   async getMyTags(req: Request, res: Response): Promise<any> {
     try {
-      const query = String(req.query || "");
+      const query = String(req.query.query || "");
 
       let tags;
 

@@ -26,6 +26,14 @@ describe("Run Tag CRUD Tests", () => {
     const testTagsResponse = await getMyTags();
     expect(testTagsResponse.status).toBe(200);
     expect(testTagsResponse.body.length).toBe(4);
+
+    const tagToCheck = testTagsResponse.body.filter((tag: TagBody) => tag.name === "Node.js")[0];
+
+    const testSearchTagsResponse = await getMyTags("node");
+    expect(testSearchTagsResponse.status).toBe(200);
+    expect(testSearchTagsResponse.body.length).toBe(1);
+
+    validateTag(tagToCheck, testSearchTagsResponse.body[0]);
   });
 
   test("Tag CRUD Testing - Check Get All Tags & Delete Tag API", async () => {

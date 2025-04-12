@@ -16,8 +16,8 @@ export type TagBody = {
   isArchived?: boolean;
 };
 
-export const getMyTags = async () => {
-  return await supertest(app).get("/tags");
+export const getMyTags = async (query?: string) => {
+  return await supertest(app).get(query ? `/tags?query=${query}` : "/tags");
 };
 
 export const createTag = async (body: TagBody | undefined) => {
