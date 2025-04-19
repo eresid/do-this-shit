@@ -7,7 +7,7 @@ export type Tag = {
   _id: string;
   name: string;
   color?: string;
-  isArchived: boolean;
+  isArchived?: boolean;
 };
 
 export type TagBody = {
@@ -25,7 +25,7 @@ export const createTag = async (body: TagBody | undefined) => {
 };
 
 export const updateTag = async (id: string, body: TagBody | undefined) => {
-  return await supertest(app).post(`/tags/${id}`).send(body);
+  return await supertest(app).put(`/tags/${id}`).send(body);
 };
 
 export const deleteTag = async (id: string) => {

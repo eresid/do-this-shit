@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { isValidObjectId } from "mongoose";
 import TagModel from "../../models/tags/tag.model";
 import { ERRORS } from "../../constants/strings.constants";
 
@@ -43,7 +44,31 @@ class TagService {
     }
   }
 
-  async updateTag(req: Request, res: Response): Promise<any> {}
+  async updateTag(req: Request, res: Response): Promise<any> {
+    try {
+      const { name, color, isArchived } = req.body;
+
+      if (!isValidObjectId(req.params.id)) {
+        return res.status(404).send({ error: ERRORS.tags.notFound });
+      }
+
+      const tag = await TagModel.findById(req.params.id);
+      if (!tag) {
+        return res.status(404).send({ error: ERRORS.tags.notFound });
+      }
+
+      tag.name = name;
+      tag.color = color;
+      if (isArchived !== undefined) tag.isArchived = color;
+
+      await tag.save();
+
+      return res.status(200).send(tag);
+    } catch (error: any) {
+      console.error(error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 
   async deleteTag(req: Request, res: Response): Promise<any> {
     try {
@@ -52,7 +77,7 @@ class TagService {
       const deletedTag = await TagModel.findByIdAndDelete(id);
 
       if (!deletedTag) {
-        return res.status(404).json({ message: ERRORS.tags.notFound });
+        return res.status(404).json({ error: ERRORS.tags.notFound });
       }
 
       return res.status(200).send();

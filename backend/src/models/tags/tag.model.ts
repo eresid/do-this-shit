@@ -6,7 +6,7 @@ import { PaginatedModel } from "../types";
 const TagSchema = new mongoose.Schema<Tag>(
   {
     name: { type: String, required: true },
-    color: { type: String, required: true },
+    color: { type: String },
     isArchived: { type: Boolean, default: false },
   },
   {

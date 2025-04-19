@@ -5,11 +5,12 @@
 ### BackEnd Side
 
 - [ ] Add Swagger (only for dev server)
-- [ ] Tags CRUD
+- [x] Tags CRUD
 - [ ] Post fields validation
 - [x] Change Posts order - last updated first
 - [ ] Search for Posts
-- [ ] 20 unit & integration tests
+- [x] Unit & integration tests for Tags
+- [ ] Unit & integration tests for Posts
 
 ### FrontEnd Side
 
@@ -17,6 +18,7 @@
 - [ ] Basic Tags CRUD
 - [ ] Post fields validation
 - [ ] Search for Posts
+- [x] Link Icon 🔗
 
 ## 0.1 (06.03.2025)
 
@@ -49,6 +51,8 @@
 - [ ] Setup Security
 - [ ] Tasks CRUD
 - [ ] Posts History
+- [ ] Password for some topics
+- [ ] Permissions (Public, Private)
 
 ### FrontEnd Side
 

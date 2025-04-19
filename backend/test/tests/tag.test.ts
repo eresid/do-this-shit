@@ -1,4 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
+import { Types } from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { clearMockDatabase, connectMockDatabase, disconnectMockDatabase } from "../utils/MockMongoLoader";
 import { getMyTags, createTag, updateTag, deleteTag, TagBody, Tag } from "../api/tag.apis";
@@ -66,8 +67,8 @@ describe("Run Tag CRUD Tests", () => {
     // Delete non-existent Tag
     const deletedNonExistingTagResponse = await deleteTag(responseWithTag.body[0]._id);
     expect(deletedNonExistingTagResponse.status).toBe(404);
-    expect(deletedNonExistingTagResponse.body).toHaveProperty("message");
-    expect(deletedNonExistingTagResponse.body.message).toEqual("The tag not found");
+    expect(deletedNonExistingTagResponse.body).toHaveProperty("error");
+    expect(deletedNonExistingTagResponse.body.error).toEqual("The tag not found");
   });
 
   test("Tag CRUD Testing - Check Create & Update Tag API", async () => {
@@ -81,22 +82,74 @@ describe("Run Tag CRUD Tests", () => {
 
     const newTagId = newTagResponse.body._id;
 
-    // TODO Update Tag
     const updatedTag: TagBody = {
       name: "some name 2",
       color: "some color 2",
     };
 
     const updatedTagResponse = await updateTag(newTagId, updatedTag);
-    // expect(updatedTagResponse.body.length).toBe(1);
-    // validateTag(updatedTag, updatedTagResponse.body[0]);
+    validateTag(updatedTag, updatedTagResponse.body);
+  });
+
+  test("Tag CRUD Testing - Empty Color Test", async () => {
+    // Create Tag without Color
+    const newTag: TagBody = {
+      name: "some name",
+    };
+
+    const newTagResponse = await createOneTag(newTag.name!);
+    validateTag(newTag, newTagResponse.body);
+
+    const newTagId = newTagResponse.body._id;
+
+    // Add Color
+    const addColorToTagBody: TagBody = {
+      name: "some name 2",
+      color: "some color 2",
+    };
+
+    const updatedTagWithColorResponse = await updateTag(newTagId, addColorToTagBody);
+    validateTag(addColorToTagBody, updatedTagWithColorResponse.body);
+
+    // Remove Color
+    const removeColorToTagBody: TagBody = {
+      name: "some name 3",
+    };
+
+    const updatedTagWithoutColorResponse = await updateTag(newTagId, removeColorToTagBody);
+    validateTag(removeColorToTagBody, updatedTagWithoutColorResponse.body);
+  });
+
+  test("Tag CRUD Testing - Updating a non-existent Tag or Incorrect Tag Id", async () => {
+    const tagBody: TagBody = {
+      name: "some name",
+      color: "some color",
+    };
+
+    // Test Incorrect Tag Id
+    const incorrectIdResponse = await updateTag("Some Tag ID", tagBody);
+    expect(incorrectIdResponse.status).toBe(404);
+    expect(incorrectIdResponse.body).toHaveProperty("error");
+    expect(incorrectIdResponse.body.error).toEqual("The tag not found");
+
+    // Test Updating a Non-existent Tag
+    const validId = new Types.ObjectId();
+
+    const nonExistentTagResponse = await updateTag(validId.toString(), tagBody);
+    expect(nonExistentTagResponse.status).toBe(404);
+    expect(nonExistentTagResponse.body).toHaveProperty("error");
+    expect(nonExistentTagResponse.body.error).toEqual("The tag not found");
   });
 
   const validateTag = (testTag: TagBody, tagFromServer: Tag) => {
     expect(tagFromServer).toHaveProperty("name");
     expect(tagFromServer.name).toBe(testTag.name);
-    expect(tagFromServer).toHaveProperty("color");
-    expect(tagFromServer.color).toBe(testTag.color);
+    if (testTag.color) {
+      expect(tagFromServer).toHaveProperty("color");
+      expect(tagFromServer.color).toBe(testTag.color);
+    } else {
+      expect(tagFromServer).not.toHaveProperty("color");
+    }
     expect(tagFromServer).toHaveProperty("isArchived");
     expect(tagFromServer.isArchived).toBe(false);
     expect(tagFromServer).toHaveProperty("_id");
@@ -111,8 +164,12 @@ describe("Run Tag CRUD Tests", () => {
     await createOneTag("PostgreSQL", "#0d0e1c");
   };
 
-  const createOneTag = async (name: string, color: string) => {
-    const newTag: TagBody = { name, color };
+  const createOneTag = async (name: string, color?: string) => {
+    const newTag: TagBody = { name };
+
+    if (color) {
+      newTag.color = color;
+    }
 
     return await createTag(newTag);
   };
