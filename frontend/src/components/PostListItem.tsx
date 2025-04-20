@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Box, Link, Container } from "@mui/material";
+import { Box, Link } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router";
 import ReactMarkdown from "react-markdown";
 
@@ -17,6 +18,7 @@ const PostListItem = ({ post }: Props) => {
 
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
   const [isPostOpen, setPostOpen] = useState<boolean>(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
 
   const isLink = post.type == PostType.Link;
 
@@ -24,6 +26,14 @@ const PostListItem = ({ post }: Props) => {
     deletePost(post);
 
     setPostToDelete(null);
+  };
+
+  const onCopyLinkClicked = async () => {
+    if (post.content) {
+      await navigator.clipboard.writeText(post.content);
+
+      setOpenSnackBar(true);
+    }
   };
 
   return (
@@ -70,7 +80,14 @@ const PostListItem = ({ post }: Props) => {
               >
                 {post.title}
               </Link>
-              🔗
+              <Box
+                sx={{
+                  cursor: "pointer",
+                }}
+                onClick={() => onCopyLinkClicked()}
+              >
+                🔗
+              </Box>
             </Box>
           ) : (
             <Link
@@ -78,9 +95,7 @@ const PostListItem = ({ post }: Props) => {
                 cursor: "pointer",
                 color: "#1976d5",
               }}
-              onClick={() => {
-                setPostOpen(!isPostOpen);
-              }}
+              onClick={() => setPostOpen(!isPostOpen)}
             >
               {post.title}
             </Link>
@@ -94,9 +109,7 @@ const PostListItem = ({ post }: Props) => {
           }}
         >
           <PostItemMenuButton
-            onDeleteClick={() => {
-              setPostToDelete(post);
-            }}
+            onDeleteClick={() => setPostToDelete(post)}
             onEditClick={() => {
               navigate(`/edit-post/`, { state: { post: post } });
             }}
@@ -131,6 +144,12 @@ const PostListItem = ({ post }: Props) => {
           </ReactMarkdown>
         </Box>
       ) : null}
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={2000}
+        onClose={() => setOpenSnackBar(false)}
+        message="Copied to clipboard"
+      />
     </Box>
   );
 };
