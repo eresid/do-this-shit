@@ -1,10 +1,9 @@
 import { useLocation, useNavigate } from "react-router";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { Post, PostType, usePostsStore } from "../store/PostsStore";
 import PostTypeSelector from "../components/PostTypeSelector";
-import PostMarkdownTabs from "../components/PostMarkdownTabs";
+import MDEditor from "@uiw/react-md-editor";
 
 export default function EditPost() {
   const location = useLocation();
@@ -15,9 +14,8 @@ export default function EditPost() {
     location.state ? location.state.post : null
   );
   const [type, setType] = useState(post ? post.type : PostType.Markdown);
-  const [title, setTitle] = useState(post ? post.title : "");
+  const [title, setTitle] = useState<string>(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");
-  const [isEditMode, setIsEditMode] = useState<boolean>(true);
 
   const addPostClicked = () => {
     if (title.trim()) {
@@ -81,7 +79,6 @@ export default function EditPost() {
             sx={{
               width: "70%",
             }}
-            id="outlined-basic"
             label="Title"
             variant="outlined"
             value={title}
@@ -91,19 +88,10 @@ export default function EditPost() {
           <PostTypeSelector type={type} setType={setType} />
         </Box>
 
-        {type == PostType.Markdown ? (
-          <PostMarkdownTabs
-            isEditMode={isEditMode}
-            setIsEditMode={setIsEditMode}
-          />
-        ) : null}
-
-        {isEditMode ? (
+        {type == PostType.Link ? (
           <TextField
-            id="outlined-textarea"
-            label="Content"
-            placeholder="Enter content..."
-            multiline={type != PostType.Link}
+            label="Link"
+            placeholder="Enter link..."
             value={content}
             sx={{
               mt: 1,
@@ -111,15 +99,13 @@ export default function EditPost() {
             onChange={(e) => setContent(e.target.value)}
           />
         ) : (
-          <ReactMarkdown
-            components={{
-              a: ({ node, ...props }) => (
-                <a {...props} target="_blank" rel="noopener noreferrer" />
-              ),
+          <Box
+            sx={{
+              mt: 1,
             }}
           >
-            {content}
-          </ReactMarkdown>
+            <MDEditor value={content} onChange={setContent} />
+          </Box>
         )}
 
         <Box

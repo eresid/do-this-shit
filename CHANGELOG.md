@@ -15,6 +15,7 @@
 ### FrontEnd Side
 
 - [x] Hide Posts content by default
+- [x] MarkDown Editor
 - [ ] Basic Tags CRUD
 - [ ] Post fields validation
 - [ ] Search for Posts
@@ -53,6 +54,7 @@
 - [ ] Posts History
 - [ ] Password for some topics
 - [ ] Permissions (Public, Private)
+- [ ] Add rehype-sanitize for Security reason
 
 ### FrontEnd Side
 

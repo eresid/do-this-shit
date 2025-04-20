@@ -1,6 +1,6 @@
 {
   "name": "do-this-shit-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A very simple Checklist App",
   "author": "Yevhen Sakara",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.6",
+    "@uiw/react-md-editor": "^4.0.5",
     "axios": "^1.8.1",
     "cross-env": "^7.0.3",
     "react": "^19.0.0",
