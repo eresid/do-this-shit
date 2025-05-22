@@ -4,6 +4,8 @@
 
 ### BackEnd Side
 
+- [x] Login
+- [ ] Registration
 - [ ] Add Swagger (only for dev server)
 - [x] Tags CRUD
 - [ ] Post fields validation
@@ -14,6 +16,8 @@
 
 ### FrontEnd Side
 
+- [ ] Login
+- [ ] Registration
 - [x] Hide Posts content by default
 - [x] MarkDown Editor
 - [ ] Basic Tags CRUD
@@ -63,3 +67,4 @@
 - [ ] Registration Screen
 - [ ] Basic Tasks List
 - [ ] Add Yoopta Editor
+- [ ] Mobile Adaptation

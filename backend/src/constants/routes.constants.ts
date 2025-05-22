@@ -1,3 +1,10 @@
+export const AUTH_ROUTES = {
+  LOGIN: `/auth/login`,
+  REGISTRATION: `/auth/registration`,
+  RESET_PASSWORD: `/auth/reset-password`,
+  REFRESH_TOKEN: `/auth/refresh-token`,
+};
+
 export const TASK_ROUTES = {
   GET_MY_TASKS: `/tasks`,
   CREATE_TASK: `/tasks`,
